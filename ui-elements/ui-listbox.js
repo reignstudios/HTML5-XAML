@@ -58,13 +58,13 @@ class UIListBox extends UIElement
 		this.itemHeight = '24px';
 
 		// finish init after childeren added
-		this._observer = new MutationObserver(() => {this.finishInit();});
+		this._observer = new MutationObserver(() => {this.childerenChanged();});
 		this._observer.observe(this, {
 		  childList: true
 		});
 	}
 
-	finishInit()
+	childerenChanged()
 	{
 		for (var child of this.children)
 		{

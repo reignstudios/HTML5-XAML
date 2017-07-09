@@ -37,12 +37,22 @@
 		this.onmouseleave = () => {this._onmouseleave();}
 		this.onmousedown = (e) => {this._onmousedown(e);}
 		this.onmouseup = () => {this._onmouseup();}
+
+		// finish init after childeren added
+		this._observer = new MutationObserver(() => {this.childerenChanged();});
+		this._observer.observe(this, {
+		  childList: true
+		});
+	}
+
+	childerenChanged()
+	{
+		if (this.textContent !== null && this.textContent.length !== 0) this.applyCenteredContentStyle();
 	}
 
 	connectedCallback()
 	{
 		super.connectedCallback();
-		if (this.textContent !== null && this.textContent.length !== 0) this.applyCenteredContentStyle();
 		
 		this.style.boxShadow = 'inset 0px 0px 0px 0px ' + this.btnHoverColor;
 		this.style.background = this.btnColor;

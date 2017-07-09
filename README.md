@@ -1,7 +1,7 @@
 # HTML5-XAML (work in progress)
 HTML5 layout engine for XAML app developers. (Good for Electron apps)
 
-NOTE: This uses features currently only avaliable in Chrome or Opera (or electron).<br>
+NOTE: This uses features currently only avaliable in Electron, Chrome or Opera.<br>
 These features primaraly include (Custom Elements): https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements/Custom_Elements_with_Classes
 
 FireFox and Edge should support these features later.<br>
