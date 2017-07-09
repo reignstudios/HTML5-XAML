@@ -13,3 +13,9 @@ Features
 * XAML like html elements
 * XAML like layout tags
 * TODO: HTML element ID name to JS, TS or C#-(Bridge.NET) object code-behind generator.
+
+<html>
+<body>
+<iframe src="https://github.com/reignstudios/HTML5-XAML/blob/master/Samples/catalog.html" style="width:1024; height:1024"></iframe>
+</body>
+</html>
