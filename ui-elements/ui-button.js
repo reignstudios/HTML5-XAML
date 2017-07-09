@@ -58,6 +58,11 @@
 		this.style.background = this.btnColor;
 	}
 
+	disconnectedCallback()
+	{
+		this._observer.disconnect();
+	}
+
 	_onmouseenter()
 	{
 		this.style.boxShadow = 'inset 0px 0px 0px 3px ' + this.btnHoverColor;

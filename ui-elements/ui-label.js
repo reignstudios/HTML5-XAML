@@ -20,11 +20,6 @@
 				break;
 		}
 	}
-
-	connectedCallback()
-	{
-		super.connectedCallback();
-	}
 }
 
 customElements.define('ui-label', UILabel);
