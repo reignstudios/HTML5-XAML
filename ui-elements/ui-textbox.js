@@ -26,8 +26,18 @@ class UITextBox extends UIElement
 				this.type = newValue;
                 this.applySettings();
 				break;
+
+            case 'color':
+                this.color = newValue;
+                break;
 		}
 	}
+
+    /*set text(value)// TODO: add properties (text backed by this._text)
+    {
+        alert(value);
+        return null;
+    }*/
 
 	applySettings()
 	{
@@ -48,6 +58,7 @@ class UITextBox extends UIElement
 		this.textColor = 'black';
 		this.textAlign = 'left';
         this.type = 'text';
+        this.color = 'white';
 
         // finish init after childeren added
 		this._observer = new MutationObserver(() => {this.childerenChanged();});
@@ -64,7 +75,6 @@ class UITextBox extends UIElement
 	connectedCallback()
 	{
 		super.connectedCallback();
-		this.applyCenteredContentStyle();
 
         // copy text content to text buff
         if (this.textContent !== null && this.textContent.length !== 0) this.text = this.textContent;
@@ -73,8 +83,18 @@ class UITextBox extends UIElement
         // create input child
 		this.input = document.createElement('input');
 		this.appendChild(this.input);
-		this.input.style.width = '100%';
-		this.input.style.height = '100%';
+        this.input.style.position = 'absolute';
+        this.input.style.padding = '0px';
+        this.input.style.margin = '0px';
+        this.input.style.top = '2px';
+        this.input.style.bottom = '2px';
+        this.input.style.left = '4px';
+        this.input.style.right = '4px';
+        this.input.style.outline = 'none';
+        this.style.boxShadow = 'inset 0px 0px 0px 1px ' + this.input.style.borderColor;
+        this.input.style.border = '0px';
+        this.style.background = this.color;
+
         this.applySettings();
 	}
 
