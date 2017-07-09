@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>UI Element Teseter</title>
+
+	<script src="../ui-elements/ui-element.js"></script>
+	<script src="../ui-elements/ui-label.js"></script>
+	<script src="../ui-elements/ui-image.js"></script>
+	<script src="../ui-elements/ui-grid.js"></script>
+	<script src="../ui-elements/ui-button.js"></script>
+	<script src="../ui-elements/ui-listbox.js"></script>
+</head>
+<body style="background:black; overflow:hidden">
+ <ui-grid margin-left="10px" margin-right="10px" margin-top="10px" margin-bottom="10px" color="red">
+	<ui-button id="testBtn" h-align="center" v-align="center" x="0px" y="0px" width="128px" height="32px">Button</ui-button>
+
+ 	<ui-grid width="256px" height="256px" color="green" h-align="left" y="5px" x="5px">
+ 		<ui-label color="white" x="10px" y="10px" h-align="left" v-align="top">My Label</ui-label>
+ 	</ui-grid>
+
+ 	<ui-grid width="256px" height="256px" color="green" h-align="right" y="5px" x="5px">
+ 		<ui-label color="white" x="10px" y="10px" h-align="right" v-align="bottom">My Label</ui-label>
+ 	</ui-grid>
+
+ 	<ui-grid margin-left="10px" margin-right="10px" margin-top="75%" margin-bottom="10px" color="yellow">
+ 		<ui-label color="blue" x="10px" h-align="right" v-align="center" width="100px">*****</ui-label>
+	 	<ui-button id="testBtn2" h-align="center" v-align="center" x="0px" y="0px" width="128px" height="32px"><ui-image src="images/ReignLogo.png" width="100%" height="75%" v-align="center"></ui-image></ui-button>
+ 	</ui-grid>
+
+	<ui-listbox h-align="center" v-align="top" x="0px" y="0px" width="256px" height="256px">
+		<ui-listboxitem>Hello World!</ui-listboxitem>
+		<ui-listboxitem>Hello World! 2</ui-listboxitem>
+
+		<ui-listboxitem height="24px">
+			<ui-image src="images/ReignLogo.png" width="10%" height="16px" v-align="center"></ui-image>
+			<ui-label x="10%" width="90%" v-align="center"> Hello World! 2</ui-label>
+		</ui-listboxitem>
+
+		<ui-listboxitem height="32px">
+			<ui-button id="lstBtn" width="32px" height="32px" v-align="center">
+				<ui-image src="images/ReignLogo.png" width="75%" height="75%" v-align="center"></ui-image>
+			</ui-button>
+			<ui-label x="32px" v-align="center">&nbsp;Hello World! 4</ui-label>
+		</ui-listboxitem>
+	</ui-listbox>
+
+	<ui-image src="images/ReignLogo.png" h-align="right" v-align="center" x="30px" y="0px" width="128px" height="128px"></ui-image>
+ </ui-grid>
+
+ <script>
+	var btn = document.getElementById('testBtn');
+	btn.onclick = function() {
+		alert('Button Clicked');
+	}
+
+	var btn2 = document.getElementById('testBtn2');
+	btn2.onclick = function() {
+		alert('Image Button Clicked');
+	}
+
+	var lstBtn = document.getElementById('lstBtn');
+	lstBtn.onclick = function() {
+		alert('List Button Clicked');
+	}
+ </script>
+</body>
+</html>
