@@ -14,5 +14,5 @@ Features
 * XAML like layout tags
 * TODO: HTML element ID name to JS, TS or C#-(Bridge.NET) object code-behind generator.
 
-Preview <a href="http://htmlpreview.github.io/?https://github.com/reignstudios/HTML5-XAML/blob/master/Samples/catalog.html">Link</a>
+Preview <a href="http://reign-studios.com/HTML-XAML/Samples/catalog.html">Link</a>
 ---
