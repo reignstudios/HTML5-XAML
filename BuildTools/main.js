@@ -72,9 +72,8 @@ function generateCodeBehind(rootPath, type)
                 file.write(`namespace UI\n{\n\tpartial class ${name}\n\t{\n`);
             }
 
-            loadHTML(fullPath, function(element) 
+            loadHTML(fullPath, function(element)
             {
-                console.log(element.id);
                 if (type === '.js') file.write(`const ${element.id} = document.getElementById('${element.id}');\n`);
                 else if (type === '.ts') file.write(`const ${element.id}: HTMLElement = document.getElementById('${element.id}');\n`);
                 else if (type === '.cs') file.write(`\t\treadonly HTMLElement ${element.id} = Document.GetElementById<HTMLElement>("${element.id}");\n`);
