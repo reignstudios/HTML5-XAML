@@ -1,5 +1,31 @@
 ﻿class UIButton extends UIElement
 {
+	get btnColor() {return this._btnColor;}
+    set btnColor(value)
+    {
+        this._btnColor = value;
+		this.style.background = value;
+    }
+
+	get btnHoverColor() {return this._btnHoverColor;}
+    set btnHoverColor(value)
+    {
+        this._btnHoverColor = value;
+    }
+
+	get text() {return this.textContent;}
+    set text(value)
+    {
+        this.textContent = value;
+		this.applyCenteredContentStyle();
+    }
+
+	get textColor() {return this.style.color;}
+    set textColor(value)
+    {
+        this.style.color = value;
+    }
+
 	static get observedAttributes() { return UIElement.observedAttributes.concat(['color-hover', 'text', 'text-color']); }
 	attributeChangedCallback(attr, oldValue, newValue)
 	{
@@ -16,12 +42,11 @@
 				break;
 
 			case 'text':
-				this.textContent = newValue;
-				this.applyCenteredContentStyle();
+				this.text = newValue;
 				break;
 
 			case 'text-color':
-				this.style.color = newValue;
+				this.textColor = newValue;
 				break;
 		}
 	}
@@ -30,8 +55,8 @@
 	{
 		super();
 		
-		this.btnColor = 'darkgray';
-		this.btnHoverColor = 'gray';
+		this._btnColor = 'darkgray';
+		this._btnHoverColor = 'gray';
 
 		this.onmouseenter = () => {this._onmouseenter();}
 		this.onmouseleave = () => {this._onmouseleave();}
@@ -48,14 +73,15 @@
 	childerenChanged()
 	{
 		if (this.textContent !== null && this.textContent.length !== 0) this.applyCenteredContentStyle();
+		else this.removeCenteredContentStyle();
 	}
 
 	connectedCallback()
 	{
 		super.connectedCallback();
 		
-		this.style.boxShadow = 'inset 0px 0px 0px 0px ' + this.btnHoverColor;
-		this.style.background = this.btnColor;
+		this.style.boxShadow = 'inset 0px 0px 0px 0px ' + this._btnHoverColor;
+		this.style.background = this._btnColor;
 	}
 
 	disconnectedCallback()
@@ -65,24 +91,24 @@
 
 	_onmouseenter()
 	{
-		this.style.boxShadow = 'inset 0px 0px 0px 3px ' + this.btnHoverColor;
+		this.style.boxShadow = 'inset 0px 0px 0px 3px ' + this._btnHoverColor;
 	}
 
 	_onmouseleave()
 	{
-		this.style.boxShadow = 'inset 0px 0px 0px 0px ' + this.btnHoverColor;
-		this.style.background = this.btnColor;
+		this.style.boxShadow = 'inset 0px 0px 0px 0px ' + this._btnHoverColor;
+		this.style.background = this._btnColor;
 	}
 
 	_onmousedown(e)
 	{
 		e.cancelBubble = true;
-		this.style.background = this.btnHoverColor;
+		this.style.background = this._btnHoverColor;
 	}
 
 	_onmouseup()
 	{
-		this.style.background = this.btnColor;
+		this.style.background = this._btnColor;
 	}
 }
 

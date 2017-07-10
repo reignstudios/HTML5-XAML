@@ -1,5 +1,23 @@
 ﻿class UIImage extends UIElement
 {
+	get src() {return this._src;}
+    set src(value)
+    {
+        this._src = value;
+		if (this._img !== null) this._img.src = value;
+    }
+
+	get fill() {return this._fill;}
+    set fill(value)
+    {
+        this._fill = value;
+		if (this._img !== null)
+		{
+			if (value !== 'stretch') this._img.style.objectFit = 'contain';
+			else this._img.style.objectFit = 'fill';
+		}
+    }
+
 	static get observedAttributes() { return UIElement.observedAttributes.concat(['src', 'fill']); }
 	attributeChangedCallback(attr, oldValue, newValue)
 	{
@@ -7,34 +25,24 @@
 
 		switch (attr)
 		{
-			case 'src':
-				this.src = newValue;
-				this.applySettings();
-				break;
-
-			case 'fill':
-				this.fill = newValue;
-				this.applySettings();
-				break;
+			case 'src': this.src = newValue; break;
+			case 'fill': this.fill = newValue; break;
 		}
 	}
 
 	applySettings()
 	{
-		if (this.img === null) return;
-
-		this.img.src = this.src;
-		if (this.fill !== 'stretch') this.img.style.objectFit = 'contain';
-		else this.img.style.objectFit = 'fill';
+		this.src = this._src;
+		this.fill = this._fill;
 	}
 
 	constructor()
 	{
 		super();
 
-		this.src = null;
-		this.fill = null;
-		this.img = null;
+		this._src = null;
+		this._fill = null;
+		this._img = null;
 	}
 
 	connectedCallback()
@@ -42,11 +50,11 @@
 		super.connectedCallback();
 		this.applyCenteredContentStyle();
 
-		this.img = document.createElement('img');
-		this.appendChild(this.img);
-		this.img.style.width = '100%';
-		this.img.style.height = '100%';
-		this.img.draggable = false;
+		this._img = document.createElement('img');
+		this.appendChild(this._img);
+		this._img.style.width = '100%';
+		this._img.style.height = '100%';
+		this._img.draggable = false;
 		this.applySettings();
 	}
 }

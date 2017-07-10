@@ -1,13 +1,15 @@
 ﻿class UIListBoxItem extends UIElement
 {
+	get selected() {return this._selected;}
+
 	static get observedAttributes() { return UIElement.observedAttributes; }
 
 	constructor()
 	{
 		super();
 
-		this.selected = false;
-		this.origColor = 'transparent';
+		this._selected = false;
+		this._origColor = 'transparent';
 	}
 
 	connectedCallback()
@@ -17,33 +19,55 @@
 
 		this.style.display = 'list-item';
 		this.style.listStyleType = 'none';
-		//this.style.display = 'list-item';
 		this.style.width = '100%';
 		this.style.margin = '0px 0px 2px 0px';
-		this.origColor = this.style.background;
+		this._origColor = this.style.background;
 	}
 }
 
 class UIListBox extends UIElement
 {
-	static get observedAttributes() { return UIElement.observedAttributes.concat(['color-hover', 'item-height']); }
+	get backgroundColor() {return this._backgroundColor;}
+	set backgroundColor(value)
+    {
+        this._backgroundColor = value;
+        this.style.background = value;
+    }
+
+	get itemHoverColor() {return this._itemHoverColor;}
+	set itemHoverColor(value)
+    {
+        this._itemHoverColor = value;
+    }
+
+	get itemSelectedColor() {return this._itemSelectedColor;}
+	set itemSelectedColor(value)
+    {
+        this._itemSelectedColor = value;
+    }
+
+	get itemHeight() {return this._itemHeight;}
+	set itemHeight(value)
+    {
+        this._itemHeight = value;
+		if (this._itemHeight === null || this.children == null) return;
+		for (var child of this.children)
+		{
+			child.style.height = this._itemHeight;
+		}
+    }
+
+	static get observedAttributes() { return UIElement.observedAttributes.concat(['color-hover', 'color-selected', 'item-height']); }
 	attributeChangedCallback(attr, oldValue, newValue)
 	{
 		super.attributeChangedCallback(attr, oldValue, newValue);
 
 		switch (attr)
 		{
-			case 'color':
-				this.backgroundColor = newValue;
-				break;
-
-			case 'color-hover':
-				this.itemHoverColor = newValue;
-				break;
-
-			case 'item-height':
-				this.itemHeight = newValue;
-				break;
+			case 'color': this.backgroundColor = newValue; break;
+			case 'color-hover': this.itemHoverColor = newValue; break;
+			case 'color-selected': this.itemSelectedColor = newValue; break;
+			case 'item-height': this.itemHeight = newValue; break;
 		}
 	}
 
@@ -51,11 +75,10 @@ class UIListBox extends UIElement
 	{
 		super();
 
-		this.isInit = false;
-		this.backgroundColor = 'white';
-		this.itemHoverColor = 'lightgray';
-		this.itemSelectedColor = 'gray';
-		this.itemHeight = '24px';
+		this._backgroundColor = 'white';
+		this._itemHoverColor = 'lightgray';
+		this._itemSelectedColor = 'gray';
+		this._itemHeight = null;
 
 		// finish init after childeren added
 		this._observer = new MutationObserver(() => {this.childerenChanged();});
@@ -66,6 +89,7 @@ class UIListBox extends UIElement
 
 	childerenChanged()
 	{
+		this.itemHeight = this._itemHeight;
 		for (var child of this.children)
 		{
 			if (child.nodeName !== 'UI-LISTBOXITEM')
@@ -74,7 +98,6 @@ class UIListBox extends UIElement
 				continue;
 			}
 			
-			//child.style.height = this.itemHeight;
 			if (child.onmouseenter === null) child.onmouseenter = (e) => {this.child_onmouseenter(e);}
 			if (child.onmouseleave === null) child.onmouseleave = (e) => {this.child_onmouseleave(e);}
 			if (child.onmousedown === null) child.onmousedown = (e) => {this.child_onmousedown(e);}
@@ -87,7 +110,7 @@ class UIListBox extends UIElement
 
 		this.style.padding = '4px';
 		this.style.boxShadow = 'inset 0px 0px 0px 3px gray';
-		this.style.background = this.backgroundColor;
+		this.style.background = this._backgroundColor;
 
 		this.onmousedown = () => {this._onmousedown();}
 	}
@@ -99,12 +122,12 @@ class UIListBox extends UIElement
 
 	child_onmouseenter(e)
 	{
-		if (!e.target.selected) e.target.style.background = this.itemHoverColor;
+		if (!e.target._selected) e.target.style.background = this._itemHoverColor;
 	}
 
 	child_onmouseleave(e)
 	{
-		if (!e.target.selected) e.target.style.background = e.target.origColor;
+		if (!e.target._selected) e.target.style.background = e.target._origColor;
 	}
 
 	child_onmousedown(e)
@@ -125,14 +148,14 @@ class UIListBox extends UIElement
 		if (target === null) return;
 
 		// apply state changes
-		target.style.background = this.itemSelectedColor;
-		target.selected = true;
+		target.style.background = this._itemSelectedColor;
+		target._selected = true;
 		for (var child of this.children)
 		{
 			if (child == target) continue;
 
-			child.style.background = child.origColor;
-			child.selected = false;
+			child.style.background = child._origColor;
+			child._selected = false;
 		}
 	}
 
@@ -140,8 +163,8 @@ class UIListBox extends UIElement
 	{
 		for (var child of this.children)
 		{
-			child.style.background = child.origColor;
-			child.selected = false;
+			child.style.background = child._origColor;
+			child._selected = false;
 		}
 	}
 }

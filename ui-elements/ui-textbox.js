@@ -1,5 +1,33 @@
 class UITextBox extends UIElement
 {
+    get text() {return this._text;}
+    set text(value)
+    {
+        this._text = value;
+        if (this._input !== null) this._input.value = value;
+    }
+
+    get textColor() {return this._textColor;}
+    set textColor(value)
+    {
+        this._textColor = value;
+        if (this._input !== null) this._input.style.textColor = value;
+    }
+
+    get textAlign() {return this._textAlign;}
+    set textAlign(value)
+    {
+        this._textAlign = value;
+        if (this._input !== null) this._input.style.textAlign = value;
+    }
+
+    get type() {return this._type;}
+    set type(value)
+    {
+        this._type = value;
+        if (this._input !== null) this._input.type = value;
+    }
+
 	static get observedAttributes() { return UIElement.observedAttributes.concat(['text', 'text-color', 'text-align', 'type']); }
 	attributeChangedCallback(attr, oldValue, newValue)
 	{
@@ -7,64 +35,38 @@ class UITextBox extends UIElement
 
 		switch (attr)
 		{
-			case 'text':
-				this.text = newValue;
-                this.applySettings();
-				break;
-
-			case 'text-color':
-				this.textColor = newValue;
-                this.applySettings();
-				break;
-
-			case 'text-align':
-				this.textAlign = newValue;
-                this.applySettings();
-				break;
-
-            case 'type':
-				this.type = newValue;
-                this.applySettings();
-				break;
-
-            case 'color':
-                this.color = newValue;
-                break;
+			case 'text': this.text = newValue; break;
+			case 'text-color': this.textColor = newValue; break;
+			case 'text-align': this.textAlign = newValue; break;
+            case 'type': this.type = newValue; break;
 		}
-	}
-
-    /*set text(value)// TODO: add properties (text backed by this._text)
-    {
-        alert(value);
-        return null;
-    }*/
-
-	applySettings()
-	{
-		if (this.input === null) return;
-
-        this.input.value = this.text;
-        this.input.type = this.type;
-        this.input.style.color = this.textColor;
-        this.input.style.textAlign = this.textAlign;
 	}
 
 	constructor()
 	{
 		super();
 
-        this.input = null;
-		this.text = '';
-		this.textColor = 'black';
-		this.textAlign = 'left';
-        this.type = 'text';
-        this.color = 'white';
+        this._input = null;
+		this._text = '';
+		this._textColor = 'black';
+		this._textAlign = 'left';
+        this._type = 'text';
+        this._color = 'white';
 
         // finish init after childeren added
 		this._observer = new MutationObserver(() => {this.childerenChanged();});
 		this._observer.observe(this, {
 		  childList: true
 		});
+	}
+
+    applySettings()
+	{
+        this.text = this._text;
+        this.textColor = this._textColor;
+        this.textAlign = this._textAlign;
+        this.type = this._type;
+        this.color = this._color;
 	}
 
     childerenChanged()
@@ -77,23 +79,30 @@ class UITextBox extends UIElement
 		super.connectedCallback();
 
         // copy text content to text buff
-        if (this.textContent !== null && this.textContent.length !== 0) this.text = this.textContent;
+        if (this.textContent !== null && this.textContent.length !== 0) this._text = this.textContent;
         this.textContent = null;
 
         // create input child
-		this.input = document.createElement('input');
-		this.appendChild(this.input);
-        this.input.style.position = 'absolute';
-        this.input.style.padding = '0px';
-        this.input.style.margin = '0px';
-        this.input.style.top = '2px';
-        this.input.style.bottom = '2px';
-        this.input.style.left = '4px';
-        this.input.style.right = '4px';
-        this.input.style.outline = 'none';
-        this.style.boxShadow = 'inset 0px 0px 0px 1px ' + this.input.style.borderColor;
-        this.input.style.border = '0px';
-        this.style.background = this.color;
+        var container = document.createElement('div');
+		this._input = document.createElement('input');
+		container.appendChild(this._input);
+        this.appendChild(container);
+
+        container.style.position = 'absolute';
+        container.style.top = '2px';
+        container.style.bottom = '2px';
+        container.style.left = '4px';
+        container.style.right = '4px';
+
+        this._input.style.left = '0px';
+        this._input.style.top = '0px';
+        this._input.style.width = '100%';
+        this._input.style.height = '100%';
+        this._input.style.padding = '0px';
+        this._input.style.margin = '0px';
+        this._input.style.outline = 'none';
+        this.style.boxShadow = 'inset 0px 0px 0px 1px ' + this._input.style.borderColor;
+        this._input.style.border = '0px';
 
         this.applySettings();
 	}

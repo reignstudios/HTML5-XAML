@@ -13,5 +13,6 @@ var projPathTextBox = document.getElementById('projPathTextBox');
 selectProjButton.onclick = function()
 {
     var path = selectDirectory();
-    if (path !== null && path.length !== 0) projPathTextBox.setAttribute('text', path);
+    //if (path !== null && path.length !== 0) projPathTextBox.setAttribute('text', path);
+    if (path !== null && path.length !== 0) projPathTextBox.text = path;
 }
