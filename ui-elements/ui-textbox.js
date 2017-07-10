@@ -1,6 +1,10 @@
 class UITextBox extends UIElement
 {
-    get text() {return this._text;}
+    get text()
+    {
+        if (this._input !== null) return this._input.value;
+        return this._text;
+    }
     set text(value)
     {
         this._text = value;

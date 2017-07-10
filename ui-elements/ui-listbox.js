@@ -111,6 +111,7 @@ class UIListBox extends UIElement
 		this.style.padding = '4px';
 		this.style.boxShadow = 'inset 0px 0px 0px 3px gray';
 		this.style.background = this._backgroundColor;
+		this.style.overflowY = 'auto';
 
 		this.onmousedown = () => {this._onmousedown();}
 	}
