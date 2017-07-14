@@ -109,7 +109,9 @@ class UIListBox extends UIElement
 		super.connectedCallback();
 
 		this.style.padding = '4px';
-		this.style.boxShadow = 'inset 0px 0px 0px 3px gray';
+		this.style.borderStyle = 'solid';
+		this.style.borderWidth = '4px';
+		this.style.borderColor = 'gray';
 		this.style.background = this._backgroundColor;
 		this.style.overflowY = 'auto';
 

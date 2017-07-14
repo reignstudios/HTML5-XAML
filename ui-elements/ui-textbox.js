@@ -98,15 +98,16 @@ class UITextBox extends UIElement
         container.style.left = '4px';
         container.style.right = '4px';
 
-        this._input.style.left = '0px';
-        this._input.style.top = '0px';
+        this._input.style.position = 'absolute';
         this._input.style.width = '100%';
         this._input.style.height = '100%';
         this._input.style.padding = '0px';
         this._input.style.margin = '0px';
         this._input.style.outline = 'none';
-        this.style.boxShadow = 'inset 0px 0px 0px 1px ' + this._input.style.borderColor;
-        this._input.style.border = '0px';
+        this._input.style.border = 'none';
+
+        this.style.border = 'solid';
+        this.style.borderWidth = '2px';
 
         this.applySettings();
 	}

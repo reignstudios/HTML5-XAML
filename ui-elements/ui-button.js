@@ -80,7 +80,9 @@
 	{
 		super.connectedCallback();
 		
-		this.style.boxShadow = 'inset 0px 0px 0px 0px ' + this._btnHoverColor;
+		this.style.borderStyle = 'solid';
+		this.style.borderWidth = '4px';
+		this.style.borderColor = this._btnColor;
 		this.style.background = this._btnColor;
 	}
 
@@ -91,12 +93,12 @@
 
 	_onmouseenter()
 	{
-		this.style.boxShadow = 'inset 0px 0px 0px 3px ' + this._btnHoverColor;
+		this.style.borderColor = this._btnHoverColor;
 	}
 
 	_onmouseleave()
 	{
-		this.style.boxShadow = 'inset 0px 0px 0px 0px ' + this._btnHoverColor;
+		this.style.borderColor = this._btnColor;
 		this.style.background = this._btnColor;
 	}
 
