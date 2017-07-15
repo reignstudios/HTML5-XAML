@@ -49,6 +49,7 @@
 	{
 		super.connectedCallback();
 		this.applyCenteredContentStyle();
+		this.className = 'ui-image';
 
 		this._img = document.createElement('img');
 		this.appendChild(this._img);

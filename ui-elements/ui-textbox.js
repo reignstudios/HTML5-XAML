@@ -32,7 +32,7 @@ class UITextBox extends UIElement
         if (this._input !== null) this._input.type = value;
     }
 
-	static get observedAttributes() { return UIElement.observedAttributes.concat(['text', 'text-color', 'text-align', 'type']); }
+    static get observedAttributes() { return UIElement.observedAttributes.concat(['text', 'text-color', 'text-align', 'type']); }
 	attributeChangedCallback(attr, oldValue, newValue)
 	{
 		super.attributeChangedCallback(attr, oldValue, newValue);
@@ -55,16 +55,15 @@ class UITextBox extends UIElement
 		this._textColor = 'black';
 		this._textAlign = 'left';
         this._type = 'text';
-        this._color = 'white';
 
         // finish init after childeren added
-		this._observer = new MutationObserver((child) => {this.childerenChanged(child);});
+		this._observer = new MutationObserver(() => {this.childerenChanged();});
 		this._observer.observe(this, {
             childList: true
 		});
 	}
 
-    applySettings(child)
+    applySettings()
 	{
         // move text content
         for (var c of this.childNodes)
@@ -78,10 +77,7 @@ class UITextBox extends UIElement
 
         // finish
         this.text = this._text;
-        this.textColor = this._textColor;
-        this.textAlign = this._textAlign;
         this.type = this._type;
-        this.color = this._color;
 	}
 
     childerenChanged()
@@ -92,12 +88,17 @@ class UITextBox extends UIElement
 	connectedCallback()
 	{
         super.connectedCallback();
+        this.className = 'ui-textbox';
+        var cssStyle = window.getComputedStyle(this);
         
         // create input child
         var container = document.createElement('div');
 		this._input = document.createElement('input');
 		container.appendChild(this._input);
         this.appendChild(container);
+
+        container.className = 'container';
+        this._input.className = 'text';
 
         container.style.position = 'absolute';
         container.style.top = '2px';
@@ -112,9 +113,11 @@ class UITextBox extends UIElement
         this._input.style.margin = '0px';
         this._input.style.outline = 'none';
         this._input.style.border = 'none';
+        this._input.style.backgroundColor = cssStyle.backgroundColor;
 
-        this.style.border = 'solid';
-        this.style.borderWidth = '2px';
+        cssStyle = window.getComputedStyle(this._input);
+        this._textColor = cssStyle.textColor;
+        this._textAlign = cssStyle.textAlign;
 	}
 
     disconnectedCallback()

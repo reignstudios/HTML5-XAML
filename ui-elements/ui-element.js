@@ -106,10 +106,10 @@
         this.style.bottom = value;
     }
 
-	get color() {return this.style.background;}
+	get color() {return this.style.backgroundColor;}
     set color(value)
     {
-        this.style.background = value;
+        this.style.backgroundColor = value;
     }
 
 	static get observedAttributes()

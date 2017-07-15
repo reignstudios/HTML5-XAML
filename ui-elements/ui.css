@@ -1,0 +1,46 @@
+.ui-grid
+{
+    background-color: transparent;
+}
+
+.ui-label
+{
+    background-color: transparent;
+    color: black;/*Text Color*/
+}
+
+.ui-textbox
+{
+    border: solid;
+    border-width: 2px;
+    border-color: black;
+    background-color: white;
+}
+
+.ui-textbox > .container > .text
+{
+    color: black;/*Text Color*/
+}
+
+.ui-button
+{
+    border: solid;
+    border-width: 4px;
+    border-color: gray;
+    background-color: darkgray;
+    color: black;/*Text Color*/
+}
+
+.ui-image
+{
+    background-color: transparent;
+}
+
+.ui-listbox
+{
+    padding: 4px;
+    border: solid;
+    border-width: 4px;
+    border-color: gray;
+    background-color: white;
+}

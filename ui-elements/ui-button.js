@@ -20,9 +20,10 @@
 		this.applyCenteredContentStyle();
     }
 
-	get textColor() {return this.style.color;}
+	get textColor() {return this._textColor;}
     set textColor(value)
     {
+		this._textColor = value;
         this.style.color = value;
     }
 
@@ -55,6 +56,7 @@
 	{
 		super();
 		
+		this._textColor = 'black';
 		this._btnColor = 'darkgray';
 		this._btnHoverColor = 'gray';
 
@@ -89,8 +91,12 @@
 	{
 		super.connectedCallback();
 		
-		this.style.borderStyle = 'solid';
-		this.style.borderWidth = '4px';
+		this.className = 'ui-button';
+		var cssStyle = window.getComputedStyle(this);
+		this._textColor = cssStyle.color;
+		this._btnColor = cssStyle.backgroundColor;
+		this._btnHoverColor = cssStyle.borderColor;
+
 		this.style.borderColor = this._btnColor;
 		this.style.background = this._btnColor;
 	}

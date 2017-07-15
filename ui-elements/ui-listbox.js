@@ -27,13 +27,6 @@
 
 class UIListBox extends UIElement
 {
-	get backgroundColor() {return this._backgroundColor;}
-	set backgroundColor(value)
-    {
-        this._backgroundColor = value;
-        this.style.background = value;
-    }
-
 	get itemHoverColor() {return this._itemHoverColor;}
 	set itemHoverColor(value)
     {
@@ -75,7 +68,6 @@ class UIListBox extends UIElement
 	{
 		super();
 
-		this._backgroundColor = 'white';
 		this._itemHoverColor = 'lightgray';
 		this._itemSelectedColor = 'gray';
 		this._itemHeight = null;
@@ -107,12 +99,7 @@ class UIListBox extends UIElement
 	connectedCallback()
 	{
 		super.connectedCallback();
-
-		this.style.padding = '4px';
-		this.style.borderStyle = 'solid';
-		this.style.borderWidth = '4px';
-		this.style.borderColor = 'gray';
-		this.style.background = this._backgroundColor;
+		this.className = 'ui-listbox';
 		this.style.overflowY = 'auto';
 
 		this.onmousedown = () => {this._onmousedown();}
