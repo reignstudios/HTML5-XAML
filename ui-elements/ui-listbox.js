@@ -43,9 +43,10 @@ class UIListBox extends UIElement
 	set itemHeight(value)
     {
         this._itemHeight = value;
-		if (this._itemHeight === null || this.children == null) return;
-		for (var child of this.children)
+		if (this._itemHeight === null || this.childNodes == null) return;
+		for (var child of this.childNodes)
 		{
+			if (child.nodeType === 3) continue;
 			child.style.height = this._itemHeight;
 		}
     }
@@ -82,8 +83,9 @@ class UIListBox extends UIElement
 	childerenChanged()
 	{
 		this.itemHeight = this._itemHeight;
-		for (var child of this.children)
+		for (var child of this.childNodes)
 		{
+			if (child.nodeType === 3) continue;
 			if (child.nodeName !== 'UI-LISTBOXITEM')
 			{
 				console.error('Must use ui-listboxitem. Unsuported: ' + child.nodeName);
@@ -140,9 +142,9 @@ class UIListBox extends UIElement
 		// apply state changes
 		target.style.background = this._itemSelectedColor;
 		target._selected = true;
-		for (var child of this.children)
+		for (var child of this.childNodes)
 		{
-			if (child == target) continue;
+			if (child == target || child.nodeType === 3) continue;
 
 			child.style.background = child._origColor;
 			child._selected = false;
@@ -151,8 +153,10 @@ class UIListBox extends UIElement
 
 	_onmousedown()
 	{
-		for (var child of this.children)
+		for (var child of this.childNodes)
 		{
+			if (child.nodeType === 3) continue;
+			
 			child.style.background = child._origColor;
 			child._selected = false;
 		}
