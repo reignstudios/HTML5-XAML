@@ -72,8 +72,17 @@
 
 	childerenChanged()
 	{
-		if (this.textContent !== null && this.textContent.length !== 0) this.applyCenteredContentStyle();
-		else this.removeCenteredContentStyle();
+		var textNodeFound = false;
+		for (var c of this.childNodes)
+        {
+            if (c.nodeType === 3)// REF: https://www.w3schools.com/jsref/prop_node_nodetype.asp
+            {
+				this.applyCenteredContentStyle();
+				textNodeFound = true;
+            }
+		}
+		
+		if (!textNodeFound) this.removeCenteredContentStyle();
 	}
 
 	connectedCallback()

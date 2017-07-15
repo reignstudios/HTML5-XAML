@@ -58,14 +58,25 @@ class UITextBox extends UIElement
         this._color = 'white';
 
         // finish init after childeren added
-		this._observer = new MutationObserver(() => {this.childerenChanged();});
+		this._observer = new MutationObserver((child) => {this.childerenChanged(child);});
 		this._observer.observe(this, {
-		  childList: true
+            childList: true
 		});
 	}
 
-    applySettings()
+    applySettings(child)
 	{
+        // move text content
+        for (var c of this.childNodes)
+        {
+            if (c.nodeType === 3)// REF: https://www.w3schools.com/jsref/prop_node_nodetype.asp
+            {
+                this._text = c.nodeValue;
+                c.nodeValue = '';
+            }
+        }
+
+        // finish
         this.text = this._text;
         this.textColor = this._textColor;
         this.textAlign = this._textAlign;
@@ -80,12 +91,8 @@ class UITextBox extends UIElement
 
 	connectedCallback()
 	{
-		super.connectedCallback();
-
-        // copy text content to text buff
-        if (this.textContent !== null && this.textContent.length !== 0) this._text = this.textContent;
-        this.textContent = null;
-
+        super.connectedCallback();
+        
         // create input child
         var container = document.createElement('div');
 		this._input = document.createElement('input');
@@ -108,8 +115,6 @@ class UITextBox extends UIElement
 
         this.style.border = 'solid';
         this.style.borderWidth = '2px';
-
-        this.applySettings();
 	}
 
     disconnectedCallback()
