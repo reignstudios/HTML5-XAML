@@ -4,7 +4,7 @@
     set btnColor(value)
     {
         this._btnColor = value;
-		this.style.background = value;
+		this.style.backgroundColor = value;
     }
 
 	get btnHoverColor() {return this._btnHoverColor;}
@@ -68,7 +68,7 @@
 		// finish init after childeren added
 		this._observer = new MutationObserver(() => {this.childerenChanged();});
 		this._observer.observe(this, {
-		  childList: true
+			childList: true
 		});
 	}
 
@@ -98,7 +98,7 @@
 		this._btnHoverColor = cssStyle.borderColor;
 
 		this.style.borderColor = this._btnColor;
-		this.style.background = this._btnColor;
+		this.style.backgroundColor = this._btnColor;
 	}
 
 	disconnectedCallback()
@@ -114,18 +114,18 @@
 	_onmouseleave()
 	{
 		this.style.borderColor = this._btnColor;
-		this.style.background = this._btnColor;
+		this.style.backgroundColor = this._btnColor;
 	}
 
 	_onmousedown(e)
 	{
 		e.cancelBubble = true;
-		this.style.background = this._btnHoverColor;
+		this.style.backgroundColor = this._btnHoverColor;
 	}
 
 	_onmouseup()
 	{
-		this.style.background = this._btnColor;
+		this.style.backgroundColor = this._btnColor;
 	}
 }
 

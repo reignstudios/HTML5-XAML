@@ -110,6 +110,12 @@
     set color(value)
     {
         this.style.backgroundColor = value;
+	}
+	
+	get visibility() {return this.style.visibility;}
+    set visibility(value)
+    {
+        this.style.visibility = value;
     }
 
 	static get observedAttributes()
@@ -118,7 +124,7 @@
 		'width', 'height',
 		'h-align', 'v-align',
 		'margin-left', 'margin-right', 'margin-top', 'margin-bottom',
-		'color'
+		'color', 'visibility'
 	];}
 
 	attributeChangedCallback(attr, oldValue, newValue)
@@ -136,6 +142,7 @@
 			case 'margin-top': this.marginTop = newValue; break;
 			case 'margin-bottom': this.marginBottom = newValue; break;
 			case 'color': this.color = newValue; break;
+			case 'visibility': this.visibility = newValue; break;
 		}
 	}
 

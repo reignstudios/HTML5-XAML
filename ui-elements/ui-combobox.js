@@ -1,4 +1,4 @@
-﻿class UIListBoxItem extends UIElement
+class UIComboBoxItem extends UIElement
 {
 	get selected() {return this._selected;}
 
@@ -7,8 +7,6 @@
 	constructor()
 	{
 		super();
-
-		this._selected = false;
 		this._origColor = 'transparent';
 	}
 
@@ -25,7 +23,7 @@
 	}
 }
 
-class UIListBox extends UIElement
+class UIComboBox extends UIElement
 {
 	get itemHoverColor() {return this._itemHoverColor;}
 	set itemHoverColor(value)
@@ -33,10 +31,16 @@ class UIListBox extends UIElement
         this._itemHoverColor = value;
     }
 
-	get itemSelectedColor() {return this._itemSelectedColor;}
-	set itemSelectedColor(value)
+	get selectedValue() {return this._selectedValue;}
+	set selectedValue(value)
     {
-        this._itemSelectedColor = value;
+        this._selectedValue = value;// TODO
+    }
+
+    get selectedItem() {return this._selectedItem;}
+	set selectedItem(value)
+    {
+        this._selectedItem = value;// TODO
     }
 
 	get itemHeight() {return this._itemHeight;}
@@ -51,7 +55,7 @@ class UIListBox extends UIElement
 		}
     }
 
-	static get observedAttributes() { return UIElement.observedAttributes.concat(['color-hover', 'color-selected', 'item-height']); }
+	static get observedAttributes() { return UIElement.observedAttributes.concat(['color-hover', 'item-selected', 'item-height']); }
 	attributeChangedCallback(attr, oldValue, newValue)
 	{
 		super.attributeChangedCallback(attr, oldValue, newValue);
@@ -60,7 +64,7 @@ class UIListBox extends UIElement
 		{
 			case 'color': this.backgroundColor = newValue; break;
 			case 'color-hover': this.itemHoverColor = newValue; break;
-			case 'color-selected': this.itemSelectedColor = newValue; break;
+			case 'item-selected': this.selectedItem = newValue; break;// TODO
 			case 'item-height': this.itemHeight = newValue; break;
 		}
 	}
@@ -70,13 +74,15 @@ class UIListBox extends UIElement
 		super();
 
 		this._itemHoverColor = 'lightgray';
-		this._itemSelectedColor = 'gray';
-		this._itemHeight = null;
+        this._selectedValue = null;
+        this._selectedItem = null;
+        this._itemHeight = null;
+        this._itemList = null;
 
 		// finish init after childeren added
 		this._observer = new MutationObserver(() => {this.childerenChanged();});
 		this._observer.observe(this, {
-			childList: true
+            childList: true
 		});
 	}
 
@@ -86,9 +92,9 @@ class UIListBox extends UIElement
 		for (var child of this.childNodes)
 		{
 			if (child.nodeType === 3) continue;
-			if (child.nodeName !== 'UI-LISTBOXITEM')
+			if (child.nodeName !== 'UI-COMBOBOXITEM')
 			{
-				console.error('Must use ui-listboxitem. Unsuported: ' + child.nodeName);
+				console.error('Must use ui-comboboxitem. Unsuported: ' + child.nodeName);
 				continue;
 			}
 			
@@ -101,9 +107,9 @@ class UIListBox extends UIElement
 	connectedCallback()
 	{
 		super.connectedCallback();
-		this.className = 'ui-listbox';
+		this.className = 'ui-combobox';
 		this.style.overflowX = 'hidden';
-		this.style.overflowY = 'auto';
+		this.style.overflowY = 'hidden';
 
 		this.onmousedown = () => {this._onmousedown();}
 	}
@@ -131,7 +137,7 @@ class UIListBox extends UIElement
 		var target = null;
 		for (var t of e.path)
 		{
-			if (t.nodeName === 'UI-LISTBOXITEM')
+			if (t.nodeName === 'UI-COMBOBOXITEM')
 			{
 				target = t;
 				break;
@@ -140,29 +146,15 @@ class UIListBox extends UIElement
 		
 		if (target === null) return;
 
-		// apply state changes
-		target.style.backgroundColor = this._itemSelectedColor;
-		target._selected = true;
-		for (var child of this.childNodes)
-		{
-			if (child == target || child.nodeType === 3) continue;
-
-			child.style.backgroundColor = child._origColor;
-			child._selected = false;
-		}
+        // apply state changes
+        
 	}
 
 	_onmousedown()
 	{
-		for (var child of this.childNodes)
-		{
-			if (child.nodeType === 3) continue;
 
-			child.style.backgroundColor = child._origColor;
-			child._selected = false;
-		}
 	}
 }
 
-customElements.define('ui-listboxitem', UIListBoxItem);
-customElements.define('ui-listbox', UIListBox);
+customElements.define('ui-comboboxitem', UIComboBoxItem);
+customElements.define('ui-combobox', UIComboBox);

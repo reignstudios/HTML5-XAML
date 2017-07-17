@@ -14,15 +14,17 @@
 	<script src="../ui-elements/ui-grid.js"></script>
 	<script src="../ui-elements/ui-button.js"></script>
 	<script src="../ui-elements/ui-listbox.js"></script>
+	<script src="../ui-elements/ui-combobox.js"></script>
+	<script src="../ui-elements/ui-htmlbox.js"></script>
 </head>
 <body style="background:black; overflow:hidden">
  <ui-grid margin-left="10px" margin-right="10px" margin-top="10px" margin-bottom="10px" color="red">
 	<ui-button id="testBtn" h-align="center" v-align="center" x="0px" y="0px" width="128px" height="32px">Button</ui-button>
 
- 	<ui-grid width="256px" height="256px" color="green" h-align="left" y="5px" x="5px">
- 		<ui-label color="white" x="10px" y="10px" h-align="left" v-align="top">My Label</ui-label>
-		 <ui-textbox x="10px" y="40px" width="128px" height="24px" v-align="bottom">UserName</ui-textbox>
-		 <ui-textbox x="10px" y="10px" width="128px" height="24px" v-align="bottom" type="password">Password</ui-textbox>
+ 	<ui-grid width="256px" height="256px" color="white" h-align="left" y="5px" x="5px">
+		<ui-label x="10px" y="10px" h-align="left" v-align="top">My Label</ui-label>
+		<ui-textbox x="10px" y="40px" width="128px" height="24px" v-align="bottom">UserName</ui-textbox>
+		<ui-textbox x="10px" y="10px" width="128px" height="24px" v-align="bottom" type="password">Password</ui-textbox>
  	</ui-grid>
 
  	<ui-grid width="256px" height="256px" color="green" h-align="right" y="5px" x="5px">
@@ -32,9 +34,12 @@
  	<ui-grid margin-left="10px" margin-right="10px" margin-top="75%" margin-bottom="10px" color="yellow">
  		<ui-label color="blue" x="10px" h-align="right" v-align="center" width="100px" text-color="cyan">*****</ui-label>
 	 	<ui-button id="testBtn2" h-align="center" v-align="center" x="0px" y="0px" width="128px" height="32px"><ui-image src="images/ReignLogo.png" width="100%" height="75%" v-align="center"></ui-image></ui-button>
- 	</ui-grid>
+		<ui-combobox x="10px" y="10px" h-align="left" v-align="top" width="100px" height="16px">
+			<ui-comboboxitem>Item 1</ui-comboboxitem>
+		</ui-combobox>
+	</ui-grid>
 
-	<ui-listbox h-align="center" v-align="top" x="0px" y="0px" width="256px" height="256px">
+	<ui-listbox h-align="center" v-align="top" x="0px" y="5px" width="256px" height="256px">
 		<ui-listboxitem>Hello World!</ui-listboxitem>
 		<ui-listboxitem>Hello World! 2</ui-listboxitem>
 
@@ -50,6 +55,11 @@
 			<ui-label x="42px" v-align="center">&nbsp;Hello World! 4</ui-label>
 		</ui-listboxitem>
 	</ui-listbox>
+
+	<ui-htmlbox h-align="left" v-align="center" x="10px" y="0px" width="128px" height="128px">
+		HTML box<br>
+		<font style="color:red">Co</font><font style="color:green">lor</font><font style="color:blue">ed</font> text etc...
+	</ui-htmlbox>
 
 	<ui-image src="images/ReignLogo.png" h-align="right" v-align="center" x="30px" y="0px" width="128px" height="128px"></ui-image>
  </ui-grid>
