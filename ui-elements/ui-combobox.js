@@ -114,7 +114,7 @@ class UIComboBox extends UIElement
 		super.connectedCallback();
 		this.className = 'ui-combobox';
 		this.style.overflowX = 'visible';
-        this.style.overflowY = 'visible';
+        this.style.overflowY = 'visible';// REF char: ▼
         
         this._itemListContainer = document.createElement('div');
         this._itemListContainer.style.visibility = 'hidden';
