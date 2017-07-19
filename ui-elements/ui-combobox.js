@@ -78,6 +78,8 @@ class UIComboBox extends UIElement
         this._selectedItem = null;
         this._itemHeight = null;
         this._itemList = null;
+        this._itemListContainer = null;
+        this._itemListOpen = false;
 
 		// finish init after childeren added
 		this._observer = new MutationObserver(() => {this.childerenChanged();});
@@ -91,12 +93,15 @@ class UIComboBox extends UIElement
 		this.itemHeight = this._itemHeight;
 		for (var child of this.childNodes)
 		{
-			if (child.nodeType === 3) continue;
+			if (child.nodeType === 3 || child === this._itemListContainer) continue;
 			if (child.nodeName !== 'UI-COMBOBOXITEM')
 			{
 				console.error('Must use ui-comboboxitem. Unsuported: ' + child.nodeName);
 				continue;
-			}
+            }
+            
+            this.removeChild(child);
+            this._itemListContainer.appendChild(child);
 			
 			if (child.onmouseenter === null) child.onmouseenter = (e) => {this.child_onmouseenter(e);}
 			if (child.onmouseleave === null) child.onmouseleave = (e) => {this.child_onmouseleave(e);}
@@ -108,9 +113,24 @@ class UIComboBox extends UIElement
 	{
 		super.connectedCallback();
 		this.className = 'ui-combobox';
-		this.style.overflowX = 'hidden';
-		this.style.overflowY = 'hidden';
+		this.style.overflowX = 'visible';
+        this.style.overflowY = 'visible';
+        
+        this._itemListContainer = document.createElement('div');
+        this._itemListContainer.style.visibility = 'hidden';
+        this._itemListContainer.style.padding = '2px';
+        this._itemListContainer.style.zIndex = '1';
+        this._itemListContainer.style.backgroundColor = 'blue';
+        this._itemListContainer.style.overflowX = 'hidden';
+        this._itemListContainer.style.overflowY = 'auto';
+        this._itemListContainer.style.position = 'absolute';
+        this._itemListContainer.style.left = '0px';
+        this._itemListContainer.style.top = '100%';
+        this._itemListContainer.style.minWidth = '100%';
+        this._itemListContainer.style.maxHeight = '128px';
+        this.appendChild(this._itemListContainer);
 
+        this._itemListContainer.onmousedown = () => {this._container_onmousedown();}
 		this.onmousedown = () => {this._onmousedown();}
 	}
 
@@ -131,28 +151,18 @@ class UIComboBox extends UIElement
 
 	child_onmousedown(e)
 	{
-		e.cancelBubble = true;
 		
-		// find item target
-		var target = null;
-		for (var t of e.path)
-		{
-			if (t.nodeName === 'UI-COMBOBOXITEM')
-			{
-				target = t;
-				break;
-			}
-		}
-		
-		if (target === null) return;
+    }
+    
+    _container_onmousedown()
+	{
 
-        // apply state changes
-        
 	}
 
 	_onmousedown()
 	{
-
+        this._itemListOpen = !this._itemListOpen;
+        this._itemListContainer.style.visibility = this._itemListOpen ? 'visible' : 'hidden';
 	}
 }
 
