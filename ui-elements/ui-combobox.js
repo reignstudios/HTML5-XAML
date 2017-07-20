@@ -158,6 +158,7 @@ class UIComboBox extends UIElement
 		this.appendChild(this._selectedValueContainer);
 		
 		// bind mouse events
+		this.onmouseleave = () => {this._onmouseleave();}
 		this.onmousedown = () => {this._onmousedown();}
 		this._itemListContainer.onmousedown = (e) => {this._container_onmousedown(e);}
 	}
@@ -182,7 +183,13 @@ class UIComboBox extends UIElement
 		this.selectItem(e.target);
 		this._itemListOpen = false;
         this._itemListContainer.style.visibility = 'hidden';
-    }
+	}
+	
+	_onmouseleave()
+	{
+		this._itemListOpen = false;
+        this._itemListContainer.style.visibility = 'hidden';
+	}
 
 	_onmousedown()
 	{
