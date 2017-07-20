@@ -47,7 +47,16 @@
 
 .ui-combobox
 {
-    padding: 4px;
+    padding: 2px;
+    border: solid;
+    border-width: 2px;
+    border-color: gray;
+    background-color: white;
+}
+
+.ui-combobox > .popup
+{
+    padding: 2px;
     border: solid;
     border-width: 2px;
     border-color: gray;

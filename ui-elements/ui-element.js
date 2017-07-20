@@ -177,4 +177,11 @@
 		this.style.justifyContent = 'initial';
 		this.style.alignItems = 'initial';
 	}
+
+	getValueComponents(value)
+	{
+		var found = value.match('(.*)(%|px)');
+		if (found !== null && found.length === 3) return [found[1], found[2]];
+		return value;
+	}
 }

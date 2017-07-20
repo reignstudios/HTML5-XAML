@@ -21,6 +21,7 @@
 		this.style.listStyleType = 'none';
 		this.style.width = '100%';
 		this.style.margin = '0px 0px 2px 0px';
+		this.style.whiteSpace = 'nowrap';
 		this._origColor = this.style.backgroundColor;
 	}
 }
