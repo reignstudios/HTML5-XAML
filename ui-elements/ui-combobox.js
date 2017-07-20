@@ -198,6 +198,12 @@ class UIComboBox extends UIElement
 			{
 				this._itemListContainer.style.top = `calc(${-rect.height}px - ${cssStyle.borderWidth})`;
 			}
+
+			if (rect.right > window.innerWidth)
+			{
+				this._itemListContainer.style.left = null;
+				this._itemListContainer.style.right = '-' + cssStyle.borderWidth;
+			}
 		}
 	}
 
