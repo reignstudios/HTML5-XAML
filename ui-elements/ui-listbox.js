@@ -17,6 +17,7 @@
 		super.connectedCallback();
 		this.style.position = 'relative';
 
+		this.style.overflowX = 'hidden';
 		this.style.display = 'list-item';
 		this.style.listStyleType = 'none';
 		this.style.width = '100%';
