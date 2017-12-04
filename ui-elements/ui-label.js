@@ -1,4 +1,6 @@
-﻿class UILabel extends UIElement
+﻿"use strict";
+
+class UILabel extends UIElement
 {
 	get text() {return this.textContent;}
     set text(value)

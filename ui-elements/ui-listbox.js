@@ -1,4 +1,6 @@
-﻿class UIListBoxItem extends UIElement
+﻿"use strict";
+
+class UIListBoxItem extends UIElement
 {
 	get selected() {return this._selected;}
 

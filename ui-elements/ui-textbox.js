@@ -1,3 +1,5 @@
+"use strict";
+
 class UITextBox extends UIElement
 {
     get text()

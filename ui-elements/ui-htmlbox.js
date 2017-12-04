@@ -1,3 +1,5 @@
+"use strict";
+
 class UIHTMLBox extends UIElement
 {
 	static get observedAttributes() { return UIElement.observedAttributes; }

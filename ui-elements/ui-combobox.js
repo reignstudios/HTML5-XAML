@@ -1,3 +1,5 @@
+"use strict";
+
 class UIComboBoxItem extends UIElement
 {
 	get selected() {return this._selected;}

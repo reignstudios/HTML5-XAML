@@ -1,3 +1,5 @@
+"use strict";
+
 class UITab extends UIElement
 {
 	static get observedAttributes() { return UIElement.observedAttributes; }

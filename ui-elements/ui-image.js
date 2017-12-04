@@ -1,4 +1,6 @@
-﻿class UIImage extends UIElement
+﻿"use strict";
+
+class UIImage extends UIElement
 {
 	get src() {return this._src;}
     set src(value)

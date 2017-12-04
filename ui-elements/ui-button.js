@@ -1,4 +1,6 @@
-﻿class UIButton extends UIElement
+﻿"use strict";
+
+class UIButton extends UIElement
 {
 	get btnColor() {return this._btnColor;}
     set btnColor(value)

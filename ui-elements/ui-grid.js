@@ -1,4 +1,6 @@
-﻿class UIGrid extends UIElement
+﻿"use strict";
+
+class UIGrid extends UIElement
 {
 	static get observedAttributes() { return UIElement.observedAttributes; }
 
